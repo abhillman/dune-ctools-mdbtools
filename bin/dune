@@ -1,0 +1,19 @@
+(executable
+ (public_name repro)
+ (name main)
+ (libraries repro)
+ ; ctypes backward compatibility shims warn sometimes; suppress them
+ (flags (:standard -w -9-27))
+ (ctypes
+  (external_library_name libmdbsql)
+  (build_flags_resolver pkg_config)
+  (headers (include "%{env:MDBPATH=}/include/mdbmdbsql.h"))
+  (type_description
+   (instance Type)
+   (functor Type_description))
+  (function_description
+   (concurrency sequential)
+   (instance Functions)
+   (functor Function_description))
+  (generated_types Types_generated)
+  (generated_entry_point C)))
